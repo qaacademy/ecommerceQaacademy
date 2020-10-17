@@ -24,7 +24,7 @@ public class BasePage {
 	public void takeScreenShot(String nomeMetodo) throws IOException {
 		TakesScreenshot screenshot = (TakesScreenshot) driver; // Criando um obj do TakesScreenshot, recebendo um driver
 		File arquivo = screenshot.getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(arquivo, new File("output" + File.separator +File.separator + nomeMetodo + ".jpg"));
+		FileUtils.copyFile(arquivo, new File("output" + File.separator + nomeMetodo + ".jpg"));
 
 	}
 

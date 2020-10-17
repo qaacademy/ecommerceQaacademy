@@ -84,7 +84,7 @@ public class TestesAmericanas {
 
 	private void verificaSistemaOperacionalESetaChromeDriver() {
 		System.out.println(System.getProperty("os.name"));
-		if (System.getProperty("os.name").contains("windows")) {
+		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			System.setProperty("webdriver.chrome.driver",
 					"chromedriver.exe");
 		}else {
