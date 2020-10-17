@@ -46,8 +46,12 @@ public class TestesAmericanas {
 		String valorSite = produtoPage.retornaValorProduto();
 		System.out.println("Valor Retornado: " + valorSite);
 		assertEquals("Valor diferente do que o esperado:", preco, valorSite);
-
 	}
+	
+
+	
+	
+	
 /**
  * Configura o Chrome Driver com espera Implicita de até 60 Segundos
  */

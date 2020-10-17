@@ -11,9 +11,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 	WebDriver driver;
+	final String BUSCA = "#h_search-input";
+	final String BTN_BUSCAR = "//button[@id='h_search-btn']";
 
 public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -25,8 +29,11 @@ public void abrirUrl(String url) {
 }
 
 public void realizarBuscaProdutoEClica(String produto) {
-	driver.findElement(By.cssSelector("#h_search-input")).sendKeys(produto);
-	driver.findElement(By.xpath("//button[@id='h_search-btn']")).click();
+	WebDriverWait wait = new WebDriverWait(driver,30);
+	wait.until(
+			ExpectedConditions.presenceOfElementLocated(By.xpath(BTN_BUSCAR)));
+	driver.findElement(By.cssSelector(BUSCA)).sendKeys(produto);
+	driver.findElement(By.xpath(BTN_BUSCAR)).click();
 
 }
 
