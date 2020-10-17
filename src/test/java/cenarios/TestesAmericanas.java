@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.sound.midi.MidiDevice.Info;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,6 +22,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import exceptions.ElementoNaoEncontradoException;
+import page.BasePage;
 import page.HomePage;
 import page.ProdutoPage;
 import page.ResultadoDaBuscaPage;
@@ -29,6 +33,8 @@ public class TestesAmericanas {
 	HomePage homePage;
 	ResultadoDaBuscaPage resultadoDabuscaPage;
 	ProdutoPage produtoPage;
+	public static final Logger logger = Logger.getLogger(TestesAmericanas.class);
+
 	
 	@Before
 	public void before() {
@@ -48,14 +54,20 @@ public class TestesAmericanas {
 
 	@Test
 	public void buscarNotebook() throws IOException{
+		try {
 			String preco = "R$ 6.799,99";
 			homePage.abrirUrl("http://www.americanas.com");
 			homePage.realizarBuscaProdutoEClica("MacBook Air MQD32BZ/A");
 			resultadoDabuscaPage.clicaNotebook();
 			String valorSite = produtoPage.retornaValorProduto();
-			System.out.println("Valor Retornado: " + valorSite);
+			logger.info("Valor Retornado: " + valorSite);
+			logger.info(preco);
 			assertEquals("Valor diferente do que o esperado:", preco, valorSite);
-			
+
+		} catch (Exception e) {
+			logger.info(e.getStackTrace() + " " + e.getMessage());
+		}
+						
 		
 
 	}

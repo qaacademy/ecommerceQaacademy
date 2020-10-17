@@ -11,6 +11,7 @@ public class ResultadoDaBuscaPage extends BasePage {
 	}
 
 	public void clicaNotebook() throws IOException {
+		logger.info("clicaNotebook");
 		driver.findElement(By.xpath(
 				"//picture[1]/img[contains(@src,'https://images-americanas.b2w.io/produtos/01/00/offers/01/00/item/132490/7/132490742_1GG.png')]"))
 				.click();
