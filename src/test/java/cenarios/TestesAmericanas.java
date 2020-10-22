@@ -2,39 +2,25 @@ package cenarios;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import javax.sound.midi.MidiDevice.Info;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestName;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import exceptions.ElementoNaoEncontradoException;
-import page.BasePage;
 import page.HomePage;
 import page.ProdutoPage;
 import page.ResultadoDaBuscaPage;
 
 public class TestesAmericanas {
-
 	WebDriver driver;
 	HomePage homePage;
 	ResultadoDaBuscaPage resultadoDabuscaPage;
 	ProdutoPage produtoPage;
-	public static final Logger logger = Logger.getLogger(TestesAmericanas.class);
-
 	
 	@Before
 	public void before() {
@@ -53,21 +39,19 @@ public class TestesAmericanas {
 	}
 
 	@Test
-	public void buscarNotebook() throws IOException{
+	public void buscarNotebook() throws ElementoNaoEncontradoException{
 		try {
 			String preco = "R$ 6.799,99";
 			homePage.abrirUrl("http://www.americanas.com");
 			homePage.realizarBuscaProdutoEClica("MacBook Air MQD32BZ/A");
 			resultadoDabuscaPage.clicaNotebook();
 			String valorSite = produtoPage.retornaValorProduto();
-			logger.info("Valor Retornado: " + valorSite);
-			logger.info(preco);
+			System.out.println("Valor Retornado: " + valorSite);
 			assertEquals("Valor diferente do que o esperado:", preco, valorSite);
-
+			
 		} catch (Exception e) {
-			logger.info(e.getStackTrace() + " " + e.getMessage());
+			 throw new ElementoNaoEncontradoException();
 		}
-						
 		
 
 	}
@@ -89,14 +73,13 @@ public class TestesAmericanas {
 //				   "disable-infobars"
 //				  );
 		driver = new ChromeDriver();
-		driver.manage().window().maximize();		
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		
 	}
 
 	private void verificaSistemaOperacionalESetaChromeDriver() {
 		System.out.println(System.getProperty("os.name"));
-		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+		if (System.getProperty("os.name").contains("windows")) {
 			System.setProperty("webdriver.chrome.driver",
 					"chromedriver.exe");
 		}else {
@@ -104,20 +87,5 @@ public class TestesAmericanas {
 					"/Users/mac/Documents/Estudos_QAACADEMY_SELENIUM/eccormerceQAacademyAmericanas/chromedriver");
 		}
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

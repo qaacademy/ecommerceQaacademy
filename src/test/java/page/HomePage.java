@@ -1,14 +1,24 @@
 package page;
 
-import java.io.IOException;
+import static org.junit.Assert.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public class HomePage extends BasePage{
+import exceptions.ElementoNaoEncontradoException;
+
+public class HomePage {
+	WebDriver driver;
 
 public HomePage(WebDriver driver) {
-		super(driver);
+		this.driver = driver;
 	}
 
 public void abrirUrl(String url) {
@@ -16,11 +26,11 @@ public void abrirUrl(String url) {
 
 }
 
-public void realizarBuscaProdutoEClica(String produto) throws IOException {
-	logger.info("realizarBuscaProdutoEClica");
-		driver.findElement(By.cssSelector("#h_search-input")).sendKeys(produto);
-		driver.findElement(By.xpath("//button[@id='h_search-btn']")).click();
-		takeScreenShot("realizarBuscaProdutoEClica");
+public void realizarBuscaProdutoEClica(String produto) throws ElementoNaoEncontradoException{
+	
+		driver.findElement(By.cssSelector("456#h_search-input")).sendKeys(produto);
+		driver.findElement(By.xpath("456//button[@id='h_search-btn']")).click();
+	
 
 }
 
