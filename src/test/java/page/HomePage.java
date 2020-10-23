@@ -28,8 +28,8 @@ public void abrirUrl(String url) {
 
 public void realizarBuscaProdutoEClica(String produto) throws ElementoNaoEncontradoException{
 	
-		driver.findElement(By.cssSelector("456#h_search-input")).sendKeys(produto);
-		driver.findElement(By.xpath("456//button[@id='h_search-btn']")).click();
+		driver.findElement(By.cssSelector("#h_search-input")).sendKeys(produto);
+		driver.findElement(By.xpath("//button[@id='h_search-btn']")).click();
 	
 
 }
