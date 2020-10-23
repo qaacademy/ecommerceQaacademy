@@ -91,7 +91,7 @@ public class TestesAmericanas {
 				  );
 		driver = new ChromeDriver(chromeOptions);
 		driver.manage().window().maximize();		
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 	}
 
@@ -99,13 +99,12 @@ public class TestesAmericanas {
 		System.out.println(System.getProperty("os.name"));
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			System.setProperty("webdriver.chrome.driver",
-					"chromedriver.exe");
+					"chromedriverWin/chromedriver.exe");
 		}else {
 			System.setProperty("webdriver.chrome.driver",
-					"chromedriver");
+					"chromedriverLix/chromedriver");
 		}
 	}
-	
 
 	
 	
