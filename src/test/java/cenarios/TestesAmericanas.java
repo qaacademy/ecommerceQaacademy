@@ -29,16 +29,21 @@ import page.ProdutoPage;
 import page.ResultadoDaBuscaPage;
 
 public class TestesAmericanas {
+	@Rule
+	public TestName testName = new TestName(); // Devolve o nome do meu @Teste
 
 	WebDriver driver;
 	HomePage homePage;
 	ResultadoDaBuscaPage resultadoDabuscaPage;
 	ProdutoPage produtoPage;
 	public static final Logger logger = Logger.getLogger(TestesAmericanas.class);
+	long inicioTeste;
+	long fimTeste;
 
 	
 	@Before
 	public void before() {
+		inicioTeste = System.currentTimeMillis();
 		verificaSistemaOperacionalESetaChromeDriver();
 		configuraChromeDriver();
 		homePage = new HomePage(driver);
@@ -50,6 +55,10 @@ public class TestesAmericanas {
 	@After
 	public void fecharSite() {
 		driver.quit();
+		fimTeste = System.currentTimeMillis();
+		
+		logger.info("Teste: "+testName +" Finalizado com Sucesso!");
+		logger.info("Tempo de execução: "+calculaTempoExecucao(inicioTeste, fimTeste) + " - segundos");
 
 	}
 
@@ -104,6 +113,11 @@ public class TestesAmericanas {
 			System.setProperty("webdriver.chrome.driver",
 					"chromedriverLix/chromedriver");
 		}
+	}
+	
+	public Long calculaTempoExecucao(long inicio,long fim) {
+		return (fim - inicio)/1000;
+		
 	}
 
 	
