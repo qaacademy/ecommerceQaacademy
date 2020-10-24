@@ -1,6 +1,7 @@
 package page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class ProdutoPage extends BasePage {
@@ -17,7 +18,7 @@ public class ProdutoPage extends BasePage {
 		String valorProduto;
 		try {
 			valorProduto = driver.findElement(By.xpath(PRECO_NOTEBOOK)).getText();
-		} catch (Exception e) {
+		} catch (NoSuchElementException  e) {
 			valorProduto = driver.findElement(By.cssSelector(PRECO_NOTEBOOK_CSS)).getText();
 		}
 		return valorProduto;

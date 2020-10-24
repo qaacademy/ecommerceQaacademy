@@ -27,6 +27,7 @@ import page.BasePage;
 import page.HomePage;
 import page.ProdutoPage;
 import page.ResultadoDaBuscaPage;
+import utils.LeitorMassaJson;
 
 public class TestesAmericanas {
 	@Rule
@@ -39,11 +40,16 @@ public class TestesAmericanas {
 	public static final Logger logger = Logger.getLogger(TestesAmericanas.class);
 	long inicioTeste;
 	long fimTeste;
+	LeitorMassaJson leitorMassa;
+	
+	
 
 	
 	@Before
-	public void before() {
+	public void before() throws IOException {
 		inicioTeste = System.currentTimeMillis();
+		leitorMassa = new LeitorMassaJson();
+		leitorMassa.leitorJson();
 		verificaSistemaOperacionalESetaChromeDriver();
 		configuraChromeDriver();
 		homePage = new HomePage(driver);
@@ -57,7 +63,7 @@ public class TestesAmericanas {
 		driver.quit();
 		fimTeste = System.currentTimeMillis();
 		
-		logger.info("Teste: "+testName +" Finalizado com Sucesso!");
+		logger.info("Teste: "+testName.getMethodName() +" Finalizado com Sucesso!");
 		logger.info("Tempo de execução: "+calculaTempoExecucao(inicioTeste, fimTeste) + " - segundos");
 
 	}
@@ -65,9 +71,9 @@ public class TestesAmericanas {
 	@Test
 	public void buscarNotebook() throws IOException{
 		try {
-			String preco = "R$ 6.799,99";
-			homePage.abrirUrl("http://www.americanas.com");
-			homePage.realizarBuscaProdutoEClica("MacBook Air MQD32BZ/A");
+			String preco = leitorMassa.getMassa("preco_atual");
+			homePage.abrirUrl(leitorMassa.getMassa("url"));
+			homePage.realizarBuscaProdutoEClica(leitorMassa.getMassa("produto"));
 			resultadoDabuscaPage.clicaCookies();
 			resultadoDabuscaPage.clicaNotebook();
 			String valorSite = produtoPage.retornaValorProduto();
@@ -90,7 +96,7 @@ public class TestesAmericanas {
 
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments(
-//				   "--headless",
+				   "--headless",
 				   "--disable-web-security",
 				   "--ignore-certificate-errors",
 				   "--disable-gpu",
@@ -119,19 +125,6 @@ public class TestesAmericanas {
 		return (fim - inicio)/1000;
 		
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
