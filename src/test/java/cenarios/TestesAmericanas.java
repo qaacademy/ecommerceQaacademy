@@ -79,7 +79,7 @@ public class TestesAmericanas {
 			String valorSite = produtoPage.retornaValorProduto();
 			logger.info("Valor Retornado: " + valorSite);
 			logger.info(preco);
-			assertEquals("Valor diferente do que o esperado:", preco, valorSite);
+			assertEquals("Valor Errado:", preco, valorSite);
 
 		} catch (Exception e) {
 			logger.info(e.getStackTrace() + " " + e.getMessage());
