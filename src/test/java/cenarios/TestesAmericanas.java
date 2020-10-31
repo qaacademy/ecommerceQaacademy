@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import javax.sound.midi.MidiDevice.Info;
@@ -22,6 +23,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import dao.DaoCenariosTest;
 import exceptions.ElementoNaoEncontradoException;
 import page.BasePage;
 import page.HomePage;
@@ -41,12 +43,13 @@ public class TestesAmericanas {
 	long inicioTeste;
 	long fimTeste;
 	LeitorMassaJson leitorMassa;
+	DaoCenariosTest massasDeTeste;
 	
 	
 
 	
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException, SQLException {
 		inicioTeste = System.currentTimeMillis();
 		leitorMassa = new LeitorMassaJson();
 		leitorMassa.leitorJson();
@@ -55,6 +58,9 @@ public class TestesAmericanas {
 		homePage = new HomePage(driver);
 		resultadoDabuscaPage = new ResultadoDaBuscaPage(driver);
 		produtoPage = new ProdutoPage(driver);
+		massasDeTeste = new DaoCenariosTest();
+		String massasStringJson = massasDeTeste.loadData();
+		massasDeTeste.convertToJson(massasStringJson);
 
 	}
 
@@ -71,9 +77,9 @@ public class TestesAmericanas {
 	@Test
 	public void buscarNotebook() throws IOException{
 		try {
-			String preco = leitorMassa.getMassa("preco_atual");
-			homePage.abrirUrl(leitorMassa.getMassa("url"));
-			homePage.realizarBuscaProdutoEClica(leitorMassa.getMassa("produto"));
+			String preco = massasDeTeste.getData("preco_atual");
+			homePage.abrirUrl(massasDeTeste.getData("url"));
+			homePage.realizarBuscaProdutoEClica(massasDeTeste.getData("produto"));
 			resultadoDabuscaPage.clicaCookies();
 			resultadoDabuscaPage.clicaNotebook();
 			String valorSite = produtoPage.retornaValorProduto();
@@ -96,7 +102,7 @@ public class TestesAmericanas {
 
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments(
-				   "--headless",
+//				   "--headless",
 				   "--disable-web-security",
 				   "--ignore-certificate-errors",
 				   "--disable-gpu",

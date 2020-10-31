@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 
 public class ProdutoPage extends BasePage {
 
-	final String PRECO_NOTEBOOK = "//*[@id=\"content\"]/div/div/div[2]/div/section/div/div[2]/div[2]/div/div[1]/div[1]/div/div[1]/div/div/span";
-	final String PRECO_NOTEBOOK_CSS = "#content > div > div > div.GridUI-wcbvwm-0.idBPEj.ViewUI-sc-1ijittn-6.iXIDWU > div > section > div > div.product-main-area__ProductMainAreaUI-sc-1xcgrsz-0.kcqktA.ViewUI-sc-1ijittn-6.iXIDWU > div.offer-box__Wrapper-sc-1hat60-0.dKwBwA.ViewUI-sc-1ijittn-6.iXIDWU > div > div.buybox__BigSection-sc-4z0zqv-1.itEiUd.ViewUI-sc-1ijittn-6.iXIDWU > div:nth-child(1) > div > div.main-offer__ContainerUI-sc-1c7pzd1-1.iNXNAo.ViewUI-sc-1ijittn-6.iXIDWU > div > div > span";
+	final String PRECO_NOTEBOOK = "//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/div[1]/div";
+	final String PRECO_NOTEBOOK_CSS = "#root > div > div.src__Container-lknyo-3.fDrjdG > div.src__ProductOffer-lknyo-6.euodGz > div.src__Wrapper-sc-1p2s4st-1.fJxEvh > div.src__PriceWrapper-lo2vta-4.hULVIN > div";
 	public ProdutoPage(WebDriver driver) {
 		super(driver);
 	}
