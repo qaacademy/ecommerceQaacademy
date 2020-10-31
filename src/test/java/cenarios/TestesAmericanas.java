@@ -61,16 +61,19 @@ public class TestesAmericanas {
 		massasDeTeste = new DaoCenariosTest();
 		String massasStringJson = massasDeTeste.loadData();
 		massasDeTeste.convertToJson(massasStringJson);
+		massasDeTeste.insertExecucaoTeste();
 
 	}
 
 	@After
-	public void fecharSite() {
+	public void fecharSite() throws SQLException {
 		driver.quit();
 		fimTeste = System.currentTimeMillis();
-		
+		String tempoExecucao = calculaTempoExecucao(inicioTeste, fimTeste).toString();
 		logger.info("Teste: "+testName.getMethodName() +" Finalizado com Sucesso!");
-		logger.info("Tempo de execução: "+calculaTempoExecucao(inicioTeste, fimTeste) + " - segundos");
+		logger.info("Tempo de execução: "+ tempoExecucao+ " - segundos");
+		massasDeTeste.finalizaExecucaoTeste();
+		massasDeTeste.preencheTempoExecucaoTeste(tempoExecucao);
 
 	}
 
@@ -106,7 +109,6 @@ public class TestesAmericanas {
 				   "--disable-web-security",
 				   "--ignore-certificate-errors",
 				   "--disable-gpu",
-				   "window-size=1200x600",
 				   "disable-popup-blocking",
 				   "disable-infobars"
 				  );

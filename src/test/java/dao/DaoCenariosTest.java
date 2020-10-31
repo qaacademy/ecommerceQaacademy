@@ -122,6 +122,40 @@ public class DaoCenariosTest {
 	}
 	
 	
+	public void preencheTempoExecucaoTeste(String tempoExecucao) throws SQLException {
+
+		try {
+			System.out.println("Abrindo Conexões");
+			connection = ConnectionFactoryTest.getConnection();
+			stmt = connection.createStatement();
+			connection.setAutoCommit(false);
+
+			String sqlUpdate = "UPDATE execucao_testes set tempoExecucao = '"+tempoExecucao+"'"
+					+ "WHERE id_caso_teste = 1";
+
+			System.out.println("Atualizando Dados de Teste em execução ...");
+			int statusInsert = stmt.executeUpdate(sqlUpdate);
+			
+			if (statusInsert == 0) {
+		
+				System.out.println("Erro ao atualizar Execução de Teste");
+				connection.rollback();
+			
+			}else {
+				System.out.println("Execução de teste atualizados com sucesso!");
+				connection.commit();
+			}
+			stmt.close();
+			connection.close();
+			System.out.println("Conexões com Banco Fechadas");
+
+		} catch (Exception e) {
+			throw new SQLException(e);
+		}
+	}
+	
+
+	
 	
 
 	public void convertToJson(String json) throws SQLException {
